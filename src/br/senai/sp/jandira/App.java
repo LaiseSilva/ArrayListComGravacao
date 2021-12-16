@@ -1,4 +1,4 @@
-package br.senai.sp.jandira;
+ package br.senai.sp.jandira;
 
 import java.util.ArrayList;
 
@@ -55,6 +55,9 @@ public class App {
 
 		TelaCadastro tela = new TelaCadastro();
 		tela.setVisible(true);
+		
+		
+		
 	}
 
 }

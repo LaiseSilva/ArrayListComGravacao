@@ -6,7 +6,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import br.senai.sp.jandira.ContatosRepository;
+
 public class Arquivo {
+	
+	public ContatosRepository objDadosContatos = new ContatosRepository();
 
 	// Cria o arquivo quando ele não existir e grava dados no arquivo
 
@@ -35,9 +39,8 @@ public class Arquivo {
 	}
 
 	// leitura do arquivo
-	public String ler(String caminho) {
+	public ContatosRepository ler(String caminho) {
 
-		String conteudo = "";
 
 		try {
 			// Representa o arquivo em modo de leitura
@@ -51,18 +54,28 @@ public class Arquivo {
 			linha = lerArquivo.readLine();
 			while (linha != null) {
 
-				conteudo += linha + "\n";
+				String[] dadosLinha = linha.split(";");
+				
+				Contato objContato = new Contato();
+				
+				objContato.setNome(dadosLinha[0]);
+				objContato.setEmail(dadosLinha[1]);
+				objContato.setTelefone(dadosLinha[2]);
+				objContato.setCidade(dadosLinha[3]);
+				
+				objDadosContatos.cadastrarContato(objContato);
+				
 				linha = lerArquivo.readLine();
 			}
 
 			arquivo.close();
-			return conteudo;
+			return objDadosContatos;
 
 		} catch (IOException e) {
 
 			System.out.println("Erro: " + e.getMessage());
 
-			return "";
+			return null;
 		}
 
 	}
